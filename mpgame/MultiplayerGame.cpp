@@ -314,7 +314,7 @@ void idMultiplayerGame::SpawnPlayer( int clientNum ) {
 	TIME_THIS_SCOPE( __FUNCLINE__);
 
 	idPlayer *p = static_cast< idPlayer * >( gameLocal.entities[ clientNum ] );
-
+	p->buyMenuCash = 10000;
 	if ( !p->IsFakeClient() ) {
 		bool ingame = playerState[ clientNum ].ingame;
 		// keep ingame to true if needed, that should only happen for local player

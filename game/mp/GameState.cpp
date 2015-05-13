@@ -462,6 +462,7 @@ void rvGameState::NewState( mpGameState_t newState ) {
 						continue;
 
 					GiveStuffToPlayer(p, "ammo", "");
+					p->SetCash(10000);
 					p->inventory.weapons |= p->inventory.carryOverWeapons & CARRYOVER_WEAPONS_MASK;
 				}
 			}

@@ -320,6 +320,7 @@ void idMultiplayerGame::SpawnPlayer( int clientNum ) {
 	if ( !gameLocal.isClient ) {
 		idPlayer *p = static_cast< idPlayer * >( gameLocal.entities[ clientNum ] );
 		p->spawnedTime = gameLocal.time;
+		p->buyMenuCash = 10000;
 		//if ( gameLocal.IsTeamGame() ) {
 		//	SwitchToTeam( clientNum, -1, p->team );
 		//}
@@ -3506,9 +3507,10 @@ void idMultiplayerGame::SetupBuyMenuItems()
 
 	buyMenu->SetStateInt( "playerTeam", player->team );
 
-	if ( player->weapon )
+	if ( player->weapon ){
 		buyMenu->SetStateString( "ammoIcon", player->weapon->spawnArgs.GetString ( "inv_icon" ) );
-
+		player->buyMenuCash += 500;
+	}
 	buyMenu->SetStateInt( "player_weapon", player->GetCurrentWeapon() );
 }
 
@@ -3714,7 +3716,7 @@ idUserInterface* idMultiplayerGame::StartMenu( void ) {
 	} else if ( currentMenu == 4 ) {
 		//if( mpClientGameState.gameState.currentState == COUNTDOWN ) {
 			idPlayer* player = gameLocal.GetLocalPlayer();
-			buyMenu->SetStateString( "field_credits", va("%i", (int)player->buyMenuCash) );
+			buyMenu->SetStateString( "field_credits", va("%i", 10005) );
 			buyMenu->SetStateInt( "price_shotgun", player->GetItemCost("weapon_shotgun") );
 			buyMenu->SetStateInt( "price_hyperblaster", player->GetItemCost("weapon_hyperblaster") );
 			buyMenu->SetStateInt( "price_grenadelauncher", player->GetItemCost( "weapon_grenadelauncher" ) );
