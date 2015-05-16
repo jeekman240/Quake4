@@ -462,7 +462,9 @@ void rvGameState::NewState( mpGameState_t newState ) {
 						continue;
 
 					GiveStuffToPlayer(p, "ammo", "");
+					//Give Player 10000 Credits in MP
 					p->SetCash(10000);
+					p->ShowTip("MIKE TIP","24",false);
 					p->inventory.weapons |= p->inventory.carryOverWeapons & CARRYOVER_WEAPONS_MASK;
 				}
 			}

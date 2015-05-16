@@ -471,7 +471,10 @@ void rvGameState::NewState( mpGameState_t newState ) {
 						continue;
 
 					GiveStuffToPlayer(p, "ammo", "");
+					//Give Player 10000 Credits in MP
 					p->SetCash(10000);
+					printf("this is working");
+					
 					p->inventory.weapons |= p->inventory.carryOverWeapons & CARRYOVER_WEAPONS_MASK;
 				}
 			}
@@ -798,6 +801,7 @@ void rvDMGameState::Run( void ) {
 	
 	switch( currentState ) {
 		case GAMEON: {
+			printf("%s","this is working");
 			player = gameLocal.mpGame.FragLimitHit();
 
 			bool tiedForFirst = false;

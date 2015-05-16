@@ -17,6 +17,7 @@
 #include "ai/AAS_tactical.h"
 #include "Healing_Station.h"
 #include "ai/AI_Medic.h"
+#include "spawner.h"
 
 // RAVEN BEGIN
 // nrausch: support for turning the weapon change ui on and off
@@ -8444,6 +8445,15 @@ void idPlayer::PerformImpulse( int impulse ) {
 			}
 			break;
 		}
+		case IMPULSE_16: {
+			monsterWaves = 500;
+			monsterWavesActivated = true;
+			waveNum = 0;
+			common->Printf("Monster Waves ENGAGED \n");
+			
+			
+			break;
+		}
 		case IMPULSE_17: {
  			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
  				gameLocal.mpGame.ToggleReady( );
@@ -8467,6 +8477,14 @@ void idPlayer::PerformImpulse( int impulse ) {
 				ToggleMap();
 			}
 */
+
+			
+
+			
+			
+			
+
+
 			break;
 		}
 		case IMPULSE_20: {
@@ -9301,7 +9319,25 @@ Called every tic for each player
 */
 void idPlayer::Think( void ) {
 	renderEntity_t *headRenderEnt;
+	
 
+	if((monsterWavesActivated) && (waveNum < 3))
+	{
+		
+		monsterWaves--;			//Countdown timer for monster waves. 5 SECOND ROUNDS FOR DEMONSTRATION
+		common->Printf("%i \n", monsterWaves);
+		if (monsterWaves == 0)
+		{
+			waveNum++;
+			common->Printf("Wave %i STARTS NOW!!", waveNum);
+			monsterWaves = 500;
+
+			//CODE TO SPAWN MONSTERS WOULD HAPPEN HERE
+		}
+
+	}
+	else
+		common->Printf(".");
 	if ( talkingNPC ) {
 		if ( !talkingNPC.IsValid() ) {
 			talkingNPC = NULL;

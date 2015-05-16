@@ -8514,6 +8514,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 				ToggleMap();
 			}
 */
+			
+			gameLocal.mpGame.PlayerDeath(this,this,9);
+			printf("%s", "Mike DOCK");
 			break;
 		}
 		case IMPULSE_20: {

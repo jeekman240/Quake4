@@ -119,6 +119,7 @@ idMultiplayerGame::idMultiplayerGame() {
 	privatePlayers = 0;
 
 	lastAnnouncerSound = AS_NUM_SOUNDS;
+	
 }
 
 /*
@@ -314,7 +315,8 @@ void idMultiplayerGame::SpawnPlayer( int clientNum ) {
 	TIME_THIS_SCOPE( __FUNCLINE__);
 
 	idPlayer *p = static_cast< idPlayer * >( gameLocal.entities[ clientNum ] );
-	p->buyMenuCash = 10000;
+
+	p->monsterWavesActivated = false;
 	if ( !p->IsFakeClient() ) {
 		bool ingame = playerState[ clientNum ].ingame;
 		// keep ingame to true if needed, that should only happen for local player
@@ -332,7 +334,7 @@ void idMultiplayerGame::SpawnPlayer( int clientNum ) {
 	if ( p->IsLocalClient() && gameLocal.GetLocalPlayer() ) {
 		tourneyGUI.SetupTourneyGUI( gameLocal.GetLocalPlayer()->mphud, scoreBoard );
 	}
-
+	
 	lastVOAnnounce = 0;
 }
 
@@ -841,7 +843,7 @@ void idMultiplayerGame::UpdateScoreboard( idUserInterface *scoreBoard ) {
 	} else {
 		UpdateDMScoreboard( scoreBoard );
 	}
-
+	
 	return;
 }
 
@@ -863,7 +865,10 @@ void idMultiplayerGame::UpdateDMScoreboard( idUserInterface *scoreBoard ) {
 	if ( !player ) {
 		return;
 	}
-
+	if((gameLocal.time == player->monsterWaves) && (player->monsterWavesActivated))
+	{
+		common->Printf("Wave 1 STARTS NOW!!");
+	}
 	scoreBoard->SetStateString( "scores_sel_0", "-1" );
 	scoreBoard->SetStateString( "spectator_scores_sel_0", "-1" );
 	bool useReady = (gameLocal.serverInfo.GetBool( "si_useReady" ) && gameLocal.mpGame.GetGameState()->GetMPGameState() == WARMUP);
@@ -2998,7 +3003,10 @@ Called once each render frame (client)/once each game frame (server)
 */
 void idMultiplayerGame::CommonRun( void ) {
 	idPlayer* player = gameLocal.GetLocalPlayer();
-
+	if((gameLocal.time == player->monsterWaves) && (player->monsterWavesActivated))
+	{
+		common->Printf("Wave 1 STARTS NOW!!");
+	}
 	// twhitaker r282
 	// TTimo: sure is a nasty way to do it
 	if ( gameLocal.isServer && ( gameLocal.serverInfo.GetInt( "net_serverDedicated" ) != cvarSystem->GetCVarInteger( "net_serverDedicated" ) ) ) {
@@ -3541,6 +3549,7 @@ void idMultiplayerGame::Run( void ) {
 
 //RITUAL BEGIN
 	UpdateTeamPowerups();
+	
 //RITUAL END
 	gameState->Run();
 

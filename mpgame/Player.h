@@ -358,7 +358,7 @@ public:
 
 	// mp stuff
 	int						spectator;
-
+	bool					monsterWavesActivated;	//Tells whether player has acitvated monster waves
 	bool					scoreBoardOpen;
 	bool					forceScoreBoard;
 	bool					forceRespawn;
@@ -392,7 +392,8 @@ public:
 	// timers
 	int						minRespawnTime;			// can respawn when time > this, force after g_forcerespawn
 	int						maxRespawnTime;			// force respawn after this time
-
+	int						monsterWaves;			//Timer for when monster waves should start
+	int						waveNum;
 	// the first person view values are always calculated, even
 	// if a third person view is used
 	idVec3					firstPersonViewOrigin;
