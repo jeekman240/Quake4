@@ -9325,19 +9325,18 @@ void idPlayer::Think( void ) {
 	{
 		
 		monsterWaves--;			//Countdown timer for monster waves. 5 SECOND ROUNDS FOR DEMONSTRATION
-		common->Printf("%i \n", monsterWaves);
+		//common->Printf("%i \n", monsterWaves);
 		if (monsterWaves == 0)
 		{
 			waveNum++;
-			common->Printf("Wave %i STARTS NOW!!", waveNum);
+			common->Printf("Wave %i STARTS NOW!! \n", waveNum);
 			monsterWaves = 500;
 
 			//CODE TO SPAWN MONSTERS WOULD HAPPEN HERE
 		}
 
 	}
-	else
-		common->Printf(".");
+	
 	if ( talkingNPC ) {
 		if ( !talkingNPC.IsValid() ) {
 			talkingNPC = NULL;

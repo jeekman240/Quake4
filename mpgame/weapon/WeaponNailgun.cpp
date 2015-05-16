@@ -668,9 +668,11 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 
 			if ( wsfl.zoom ) {				
 				Attack ( true, 1, spread, 0.0f, 1.0f );
+				owner->buyMenuCash += 1;
 				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			} else {
 				Attack ( false, 1, spread, 0.0f, 1.0f );
+				owner->buyMenuCash += 1;
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			}
 			
